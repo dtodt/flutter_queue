@@ -1,0 +1,4 @@
+User-Agent:*
+Allow: /
+
+Sitemap: https://flutter-queue.web.app/sitemap.xml
