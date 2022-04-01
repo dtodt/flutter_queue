@@ -5,7 +5,7 @@ import 'package:queue/src/queue/infra/adapters/json_to_order.dart';
 class JsonToQueue {
   static QueueEntity fromMap(dynamic json) {
     return QueueEntity(
-      uid: json['uid'],
+      id: json['id'],
       title: json['title'],
       acronym: json['acronym'],
       priority: json['priority'],
