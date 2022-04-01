@@ -2,19 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:queue/src/queue/domain/entities/queue_entity.dart';
 import 'package:queue/src/queue/infra/adapters/json_to_queue.dart';
 
-import 'json_to_order_test.dart';
-
-const kEmptyQueueMap = {
-  'uid': 'uid',
-  'title': 'title',
-  'acronym': 'acronym',
-  'priority': 1,
-};
-
-const kQueueMap = {
-  ...kEmptyQueueMap,
-  'orders': [kOrderMap],
-};
+import '../../../../constants/queue.dart';
 
 void main() {
   test('should convert a map into queue', () async {

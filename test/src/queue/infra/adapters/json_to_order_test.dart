@@ -2,12 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:queue/src/queue/domain/value_objects/order.dart';
 import 'package:queue/src/queue/infra/adapters/json_to_order.dart';
 
-const kOrderMap = {
-  'uid': 'uid',
-  'position': 1,
-  'timestamp': '2022-04-01 17:10:00',
-  'status': 'waiting',
-};
+import '../../../../constants/queue.dart';
 
 void main() {
   test('should convert a map into order', () async {
