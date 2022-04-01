@@ -24,12 +24,14 @@ dependencies:
 
   cupertino_icons: ^1.0.4
   firebase_core: ^1.14.0
+  cloud_firestore: ^3.1.11
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.4
+  fake_cloud_firestore: ^1.2.2
   mocktail: ^0.3.0
 
 flutter:
