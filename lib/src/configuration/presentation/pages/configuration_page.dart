@@ -22,22 +22,54 @@ class ConfigurationPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Configurações'),
       ),
-      body: Column(
-        children: <Widget>[
-          const Text('FILAS'),
-          if (state is ConfigurationLoaded)
-            ListView.builder(
-              itemBuilder: (context, index) {
-                final queue = state.queues[index];
-                return ListTile(
-                  title: Text('${queue.title} - ${queue.acronym}'),
-                  subtitle: Text('${queue.priority} de prioridade'),
-                );
-              },
-              itemCount: state.queues.length,
-              shrinkWrap: true,
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+              child: Row(
+                children: const <Widget>[
+                  Text('FILAS'),
+                  Spacer(),
+                  Icon(Icons.add_circle_outline)
+                ],
+              ),
             ),
-        ],
+            if (state is ConfigurationLoaded)
+              ListView.builder(
+                itemBuilder: (context, index) {
+                  final queue = state.queues[index];
+                  return ListTile(
+                    title: Text('${queue.title} - ${queue.acronym}'),
+                    subtitle: Text('${queue.priority} de prioridade'),
+                    trailing: const Icon(
+                      Icons.remove,
+                      color: Colors.red,
+                    ),
+                  );
+                },
+                itemCount: state.queues.length,
+                shrinkWrap: true,
+              ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+              child: Text('CONTROLE'),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              child: ElevatedButton(
+                child: const Text('Reiniciar Filas'),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(primary: Colors.black),
+              ),
+            ),
+          ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+        width: MediaQuery.of(context).size.width,
       ),
     );
   }
