@@ -13,6 +13,11 @@ class ConfigurationPage extends StatelessWidget {
     final bloc = context.watch<ConfigurationBloc>()..add(GetAllQueuesEvent());
     final state = bloc.state;
 
+    // TODO temporary, remove in the future.
+    if (state is ConfigurationException) {
+      print(state.message);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Configurações'),

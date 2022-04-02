@@ -23,6 +23,7 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
     await emit.onEach<List<QueueEntity>>(
       getAllQueuesUsecase(),
       onData: (data) => emit(ConfigurationLoaded(data)),
+      onError: (_, stack) => emit(ConfigurationException(stack.toString())),
     );
   }
 }
