@@ -20,9 +20,9 @@ class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
 
   FutureOr<void> _getAllQueues(
       GetAllQueuesEvent event, Emitter<ConfigurationState> emit) async {
-    await emit.forEach(
+    await emit.onEach<List<QueueEntity>>(
       getAllQueuesUsecase(),
-      onData: (List<QueueEntity> data) => ConfigurationLoaded(data),
+      onData: (data) => emit(ConfigurationLoaded(data)),
     );
   }
 }
