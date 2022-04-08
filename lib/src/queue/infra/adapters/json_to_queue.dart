@@ -18,4 +18,14 @@ class JsonToQueue {
   static List<QueueEntity> fromList(List<dynamic> list) {
     return list.map((json) => fromMap(json)).toList();
   }
+
+  static Map<String, dynamic> toMap(QueueEntity queue) {
+    return {
+      'id': queue.id,
+      'title': queue.title,
+      'acronym': queue.acronym,
+      'priority': queue.priority,
+      'orders': JsonToOrder.toList(queue.orders),
+    };
+  }
 }
