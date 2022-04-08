@@ -24,4 +24,11 @@ void main() {
     final result = repository.getAllQueues();
     expect(result, emits(isA<List<QueueEntity>>()));
   });
+
+  test('should add a queue', () async {
+    final entity = QueueEntityMock();
+    when(() => datasource.addQueue(entity)).thenAnswer((_) => Future.value());
+
+    expect(repository.addQueue(entity), completes);
+  });
 }

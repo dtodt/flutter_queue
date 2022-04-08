@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:queue/src/queue/domain/entities/queue_entity.dart';
 import 'package:queue/src/queue/infra/datasources/queue_datasource.dart';
 
 const kQueueCollection = 'queue';
@@ -27,5 +28,11 @@ class QueueFirestoreDatasource implements IQueueDatasource {
       'id': doc.id,
       ...doc.data(),
     };
+  }
+
+  @override
+  Future<void> addQueue(QueueEntity queue) {
+    // TODO: implement addQueue
+    throw UnimplementedError();
   }
 }

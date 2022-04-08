@@ -20,8 +20,7 @@ class QueueRepository implements IQueueRepository {
   }
 
   @override
-  Future<void> addQueue(QueueEntity queue) {
-    // TODO: implement addQueue
-    throw UnimplementedError();
+  Future<void> addQueue(QueueEntity queue) async {
+    return await datasource.addQueue(queue);
   }
 }
