@@ -18,4 +18,10 @@ class QueueRepository implements IQueueRepository {
   List<QueueEntity> _convert(List<Map> list) {
     return JsonToQueue.fromList(list);
   }
+
+  @override
+  Future<void> addQueue(QueueEntity queue) {
+    // TODO: implement addQueue
+    throw UnimplementedError();
+  }
 }
