@@ -5,12 +5,18 @@ import 'package:queue/src/configuration/presentation/bloc/configuration_event.da
 import 'package:queue/src/configuration/presentation/bloc/configuration_state.dart';
 
 /// Configuration page
-class ConfigurationPage extends StatelessWidget {
+class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({Key? key}) : super(key: key);
 
   @override
+  State<ConfigurationPage> createState() => _ConfigurationPageState();
+}
+
+class _ConfigurationPageState extends State<ConfigurationPage>
+    with CompleteStateMixin {
+  @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ConfigurationBloc>()..add(FetchQueuesEvent());
+    final bloc = context.watch<ConfigurationBloc>();
     final state = bloc.state;
 
     // TODO temporary, remove in the future.
@@ -72,5 +78,20 @@ class ConfigurationPage extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
       ),
     );
+  }
+
+  @override
+  void completeState() {
+    context.read<ConfigurationBloc>().add(FetchQueuesEvent());
+  }
+}
+
+mixin CompleteStateMixin<T extends StatefulWidget> on State<T> {
+  void completeState();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) => completeState());
   }
 }
