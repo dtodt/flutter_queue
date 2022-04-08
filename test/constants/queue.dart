@@ -1,7 +1,9 @@
+const kTimestampText = '2022-04-01T17:10:00.000';
+
 const kOrderMap = {
   'id': 'id',
   'position': 1,
-  'timestamp': '2022-04-01 17:10:00',
+  'timestamp': kTimestampText,
   'status': 'waiting',
 };
 

@@ -14,4 +14,17 @@ class JsonToOrder {
   static List<Order> fromList(List<dynamic> list) {
     return list.map((json) => fromMap(json)).toList();
   }
+
+  static Map<String, dynamic> toMap(Order order) {
+    return {
+      'id': order.id,
+      'position': order.position,
+      'timestamp': order.timestamp.toIso8601String(),
+      'status': order.status.name,
+    };
+  }
+
+  static List<Map<String, dynamic>> toList(List<Order> list) {
+    return list.map((order) => toMap(order)).toList();
+  }
 }
