@@ -1,3 +1,3 @@
 abstract class ConfigurationEvent {}
 
-class GetAllQueuesEvent implements ConfigurationEvent {}
+class FetchQueuesEvent implements ConfigurationEvent {}

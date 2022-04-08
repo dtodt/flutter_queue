@@ -3,27 +3,31 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:queue/src/queue/domain/entities/queue_entity.dart';
-import 'package:queue/src/queue/domain/usecases/get_all_queues.dart';
+import 'package:queue/src/queue/domain/usecases/fetch_queues.dart';
 
 import 'configuration_event.dart';
 import 'configuration_state.dart';
 
 class ConfigurationBloc extends Bloc<ConfigurationEvent, ConfigurationState> {
-  final IGetAllQueues getAllQueuesUsecase;
+  final IFetchQueues fetchQueuesUsecase;
 
-  ConfigurationBloc(this.getAllQueuesUsecase) : super(ConfigurationInitial()) {
-    on<GetAllQueuesEvent>(
-      _getAllQueues,
+  ConfigurationBloc(this.fetchQueuesUsecase)
+      : super(ConfigurationInitialState()) {
+    on<FetchQueuesEvent>(
+      _fetchQueues,
       transformer: restartable(),
     );
   }
 
-  FutureOr<void> _getAllQueues(
-      GetAllQueuesEvent event, Emitter<ConfigurationState> emit) async {
+  FutureOr<void> _fetchQueues(
+      FetchQueuesEvent event, Emitter<ConfigurationState> emit) async {
+    emit(ConfigurationLoadingState());
+
     await emit.onEach<List<QueueEntity>>(
-      getAllQueuesUsecase(),
-      onData: (data) => emit(ConfigurationLoaded(data)),
-      onError: (_, stack) => emit(ConfigurationException(stack.toString())),
+      fetchQueuesUsecase(),
+      onData: (data) => emit(ConfigurationLoadedState(data)),
+      onError: (_, stack) =>
+          emit(ConfigurationExceptionState(stack.toString())),
     );
   }
 }

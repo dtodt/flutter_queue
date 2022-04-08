@@ -2,18 +2,18 @@ import 'package:queue/src/queue/domain/entities/queue_entity.dart';
 
 abstract class ConfigurationState {}
 
-class ConfigurationInitial implements ConfigurationState {}
+class ConfigurationInitialState implements ConfigurationState {}
 
-class ConfigurationLoading implements ConfigurationState {}
+class ConfigurationLoadingState implements ConfigurationState {}
 
-class ConfigurationLoaded implements ConfigurationState {
+class ConfigurationLoadedState implements ConfigurationState {
   final List<QueueEntity> queues;
 
-  const ConfigurationLoaded(this.queues);
+  const ConfigurationLoadedState(this.queues);
 }
 
-class ConfigurationException implements ConfigurationState {
+class ConfigurationExceptionState implements ConfigurationState {
   final String message;
 
-  const ConfigurationException(this.message);
+  const ConfigurationExceptionState(this.message);
 }

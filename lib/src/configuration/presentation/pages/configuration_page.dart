@@ -10,11 +10,11 @@ class ConfigurationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<ConfigurationBloc>()..add(GetAllQueuesEvent());
+    final bloc = context.watch<ConfigurationBloc>()..add(FetchQueuesEvent());
     final state = bloc.state;
 
     // TODO temporary, remove in the future.
-    if (state is ConfigurationException) {
+    if (state is ConfigurationExceptionState) {
       print(state.message);
     }
 
@@ -36,7 +36,7 @@ class ConfigurationPage extends StatelessWidget {
                 ],
               ),
             ),
-            if (state is ConfigurationLoaded)
+            if (state is ConfigurationLoadedState)
               ListView.builder(
                 itemBuilder: (context, index) {
                   final queue = state.queues[index];
