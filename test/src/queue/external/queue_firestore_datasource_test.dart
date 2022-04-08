@@ -18,7 +18,7 @@ void main() {
   });
 
   test('should return a list of queue map', () async {
-    final result = datasource.getAllQueues();
+    final result = datasource.fetchQueues();
     expect(result, emits(isA<List<Map>>()));
   });
 }

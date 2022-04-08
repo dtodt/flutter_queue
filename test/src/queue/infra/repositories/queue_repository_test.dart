@@ -18,10 +18,10 @@ void main() {
   });
 
   test('should return a list of queues', () async {
-    when(() => datasource.getAllQueues())
+    when(() => datasource.fetchQueues())
         .thenAnswer((_) => Stream.value([kQueueMap]));
 
-    final result = repository.getAllQueues();
+    final result = repository.fetchQueues();
     expect(result, emits(isA<List<QueueEntity>>()));
   });
 

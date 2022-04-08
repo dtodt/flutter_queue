@@ -14,6 +14,6 @@ class FetchQueues implements IFetchQueues {
 
   @override
   Stream<List<QueueEntity>> call() {
-    return repository.getAllQueues();
+    return repository.fetchQueues();
   }
 }

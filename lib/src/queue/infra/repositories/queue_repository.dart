@@ -10,8 +10,8 @@ class QueueRepository implements IQueueRepository {
   const QueueRepository(this.datasource);
 
   @override
-  Stream<List<QueueEntity>> getAllQueues() {
-    final stream = datasource.getAllQueues();
+  Stream<List<QueueEntity>> fetchQueues() {
+    final stream = datasource.fetchQueues();
     return stream.map(_convert);
   }
 

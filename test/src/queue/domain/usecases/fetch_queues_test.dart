@@ -17,7 +17,7 @@ void main() {
 
   test('should return a list of queues', () async {
     final entity = QueueEntityMock();
-    when(() => repository.getAllQueues())
+    when(() => repository.fetchQueues())
         .thenAnswer((_) => Stream.value([entity]));
 
     final result = usecase();

@@ -11,7 +11,7 @@ class QueueFirestoreDatasource implements IQueueDatasource {
   const QueueFirestoreDatasource(this.firestore);
 
   @override
-  Stream<List<Map>> getAllQueues() {
+  Stream<List<Map>> fetchQueues() {
     final ref = firestore.collection(kQueueCollection);
     final snapshots = ref.snapshots();
 
