@@ -5,4 +5,6 @@ abstract class IQueueRepository {
   Stream<List<QueueEntity>> fetchQueues();
 
   Future<void> addQueue(QueueEntity queue);
+
+  Future<void> removeQueue(String id);
 }
