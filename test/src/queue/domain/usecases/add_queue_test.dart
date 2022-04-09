@@ -7,7 +7,7 @@ import '../../../../mocks/queue.dart';
 
 void main() {
   late IQueueRepository repository;
-  late AddQueue usecase;
+  late IAddQueue usecase;
 
   setUpAll(() {
     repository = QueueRepositoryMock();
