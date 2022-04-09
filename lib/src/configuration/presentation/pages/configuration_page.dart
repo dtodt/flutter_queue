@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queue/src/configuration/data/models/queue_model.dart';
 import 'package:queue/src/configuration/presentation/bloc/configuration_bloc.dart';
 import 'package:queue/src/configuration/presentation/bloc/configuration_event.dart';
 import 'package:queue/src/configuration/presentation/bloc/configuration_state.dart';
@@ -35,10 +37,13 @@ class _ConfigurationPageState extends State<ConfigurationPage>
               padding:
                   const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
               child: Row(
-                children: const <Widget>[
-                  Text('FILAS'),
-                  Spacer(),
-                  Icon(Icons.add_circle_outline)
+                children: <Widget>[
+                  const Text('FILAS'),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.add_circle_outline),
+                    onPressed: _addQueueDialog,
+                  )
                 ],
               ),
             ),
@@ -83,6 +88,67 @@ class _ConfigurationPageState extends State<ConfigurationPage>
   @override
   void completeState() {
     context.read<ConfigurationBloc>().add(FetchQueuesEvent());
+  }
+
+  void _addQueueDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        var queue = QueueModel.empty();
+
+        return AlertDialog(
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<ConfigurationBloc>().add(AddQueueEvent(queue));
+                Navigator.of(context).pop();
+              },
+              child: const Text('Adicionar'),
+            ),
+          ],
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Título',
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) => queue = queue.copyWith(title: value),
+                ),
+                const SizedBox(height: 10.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Abreviação',
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) => queue = queue.copyWith(acronym: value),
+                ),
+                const SizedBox(height: 10.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Prioridade',
+                    border: OutlineInputBorder(),
+                  ),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) =>
+                      queue = queue.copyWith(priority: int.tryParse(value)),
+                ),
+              ],
+              mainAxisSize: MainAxisSize.min,
+            ),
+          ),
+          title: const Text('Nova Fila'),
+        );
+      },
+    );
   }
 }
 
