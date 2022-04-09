@@ -39,6 +39,20 @@ void main() {
   );
 
   blocTest<ConfigurationBloc, ConfigurationState>(
+    'should emit configuration loading, exception',
+    build: () {
+      when(() => fetchUsecase.call())
+          .thenAnswer((_) => Stream.error(StateError('failed')));
+      return ConfigurationBloc(fetchUsecase, addUsecase, removeUsecase);
+    },
+    act: (bloc) => bloc.add(FetchQueuesEvent()),
+    expect: () => [
+      isA<ConfigurationLoadingState>(),
+      isA<ConfigurationExceptionState>(),
+    ],
+  );
+
+  blocTest<ConfigurationBloc, ConfigurationState>(
     'should call add usecase when receive add event',
     build: () {
       when(() => addUsecase.call(entity)).thenAnswer((_) => Future.value());
