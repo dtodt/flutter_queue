@@ -3,5 +3,10 @@ import 'package:queue/src/configuration/presentation/bloc/configuration_bloc.dar
 
 /// Configuration dependency injection
 final configurationModule = [
-  BlocProvider(create: (context) => ConfigurationBloc(context.read())),
+  BlocProvider(
+    create: (context) => ConfigurationBloc(
+      context.read(),
+      context.read(),
+    ),
+  ),
 ];

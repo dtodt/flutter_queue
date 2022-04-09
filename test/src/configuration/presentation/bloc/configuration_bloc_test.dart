@@ -5,6 +5,7 @@ import 'package:queue/src/configuration/presentation/bloc/configuration_bloc.dar
 import 'package:queue/src/configuration/presentation/bloc/configuration_event.dart';
 import 'package:queue/src/configuration/presentation/bloc/configuration_state.dart';
 import 'package:queue/src/queue/domain/entities/queue_entity.dart';
+import 'package:queue/src/queue/domain/usecases/add_queue.dart';
 import 'package:queue/src/queue/domain/usecases/fetch_queues.dart';
 
 import '../../../../mocks/queue.dart';
@@ -12,18 +13,20 @@ import '../../../../mocks/queue.dart';
 void main() {
   late ConfigurationBloc bloc;
   late QueueEntity entity;
-  late IFetchQueues usecase;
+  late IFetchQueues fetchUsecase;
+  late IAddQueue addUsecase;
 
   setUpAll(() {
     entity = QueueEntityMock();
-    usecase = FetchQueuesMock();
-    bloc = ConfigurationBloc(usecase);
+    fetchUsecase = FetchQueuesMock();
+    addUsecase = AddQueueMock();
+    bloc = ConfigurationBloc(fetchUsecase, addUsecase);
   });
 
   blocTest<ConfigurationBloc, ConfigurationState>(
     'should emit configuration loading, loaded',
     build: () {
-      when(() => usecase.call()).thenAnswer((_) => Stream.value([entity]));
+      when(() => fetchUsecase.call()).thenAnswer((_) => Stream.value([entity]));
       return bloc;
     },
     act: (bloc) => bloc.add(FetchQueuesEvent()),
