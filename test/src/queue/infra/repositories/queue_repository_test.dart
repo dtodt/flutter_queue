@@ -7,6 +7,7 @@ import 'package:queue/src/queue/infra/repositories/queue_repository.dart';
 
 import '../../../../constants/queue.dart';
 import '../../../../mocks/queue.dart';
+import '../../../../utils/queue.dart';
 
 void main() {
   late IQueueDatasource datasource;
@@ -26,9 +27,9 @@ void main() {
   });
 
   test('should add a queue', () async {
-    final entity = QueueEntityMock();
-    when(() => datasource.addQueue(entity)).thenAnswer((_) => Future.value());
+    when(() => datasource.addQueue(kQueueMap))
+        .thenAnswer((_) => Future.value());
 
-    expect(repository.addQueue(entity), completes);
+    expect(repository.addQueue(getQueueMock()), completes);
   });
 }

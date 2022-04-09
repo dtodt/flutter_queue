@@ -12,13 +12,29 @@ void main() {
 
   setUpAll(() async {
     firestore = FakeFirebaseFirestore();
-    await firestore.collection(kQueueCollection).add(kQueueMap);
-
     datasource = QueueFirestoreDatasource(firestore);
   });
 
+  tearDown(() async {
+    final data = await firestore.collection(kQueueCollection).get();
+    for (var doc in data.docs) {
+      await doc.reference.delete();
+    }
+  });
+
   test('should return a list of queue map', () async {
+    await firestore.collection(kQueueCollection).add(kEmptyQueueMap);
+
     final result = datasource.fetchQueues();
     expect(result, emits(isA<List<Map>>()));
+  });
+
+  test('should return a list of queue map', () async {
+    expect(datasource.addQueue(kEmptyQueueMap), completes);
+    final ref = await firestore.collection(kQueueCollection).get();
+    final queues = ref.docs;
+    expect(queues.length, 1);
+    expect(queues.first.data()['title'], equals(kEmptyQueueMap['title']));
+    expect(queues.first.data()['id'], isNot(equals(kEmptyQueueMap['id'])));
   });
 }
