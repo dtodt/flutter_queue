@@ -7,6 +7,7 @@ final configurationModule = [
     create: (context) => ConfigurationBloc(
       context.read(),
       context.read(),
+      context.read(),
     ),
   ),
 ];

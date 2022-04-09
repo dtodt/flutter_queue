@@ -9,3 +9,9 @@ class AddQueueEvent implements ConfigurationEvent {
 
   const AddQueueEvent(this.queue);
 }
+
+class RemoveQueueEvent implements ConfigurationEvent {
+  final String id;
+
+  const RemoveQueueEvent(this.id);
+}

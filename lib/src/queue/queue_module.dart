@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:queue/src/queue/domain/repositories/queue_repository.dart';
 import 'package:queue/src/queue/domain/usecases/add_queue.dart';
 import 'package:queue/src/queue/domain/usecases/fetch_queues.dart';
+import 'package:queue/src/queue/domain/usecases/remove_queue.dart';
 import 'package:queue/src/queue/external/queue_firestore_datasource.dart';
 import 'package:queue/src/queue/infra/datasources/queue_datasource.dart';
 import 'package:queue/src/queue/infra/repositories/queue_repository.dart';
@@ -18,4 +19,5 @@ final queueModule = [
   ///? Use cases
   Provider<IFetchQueues>(create: (context) => FetchQueues(context.read())),
   Provider<IAddQueue>(create: (context) => AddQueue(context.read())),
+  Provider<IRemoveQueue>(create: (context) => RemoveQueue(context.read())),
 ];
