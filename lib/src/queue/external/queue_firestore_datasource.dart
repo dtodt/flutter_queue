@@ -35,4 +35,10 @@ class QueueFirestoreDatasource implements IQueueDatasource {
     final newQueue = {...queue}..remove('id');
     await firestore.collection(kQueueCollection).add(newQueue);
   }
+
+  @override
+  Future<void> removeQueue(String id) {
+    // TODO: implement removeQueue
+    throw UnimplementedError();
+  }
 }

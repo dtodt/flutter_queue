@@ -32,4 +32,11 @@ void main() {
 
     expect(repository.addQueue(getQueueMock()), completes);
   });
+
+  test('should remove a queue', () async {
+    when(() => datasource.removeQueue(kIdText))
+        .thenAnswer((_) => Future.value());
+
+    expect(repository.removeQueue(kIdText), completes);
+  });
 }

@@ -25,8 +25,7 @@ class QueueRepository implements IQueueRepository {
   }
 
   @override
-  Future<void> removeQueue(String id) {
-    // TODO: implement removeQueue
-    throw UnimplementedError();
+  Future<void> removeQueue(String id) async {
+    return await datasource.removeQueue(id);
   }
 }
