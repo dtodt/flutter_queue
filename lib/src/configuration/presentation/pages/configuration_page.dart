@@ -54,9 +54,12 @@ class _ConfigurationPageState extends State<ConfigurationPage>
                   return ListTile(
                     title: Text('${queue.title} - ${queue.acronym}'),
                     subtitle: Text('${queue.priority} de prioridade'),
-                    trailing: const Icon(
-                      Icons.remove,
-                      color: Colors.red,
+                    trailing: IconButton(
+                      icon: const Icon(
+                        Icons.remove,
+                        color: Colors.red,
+                      ),
+                      onPressed: () => _removeQueue(queue.id),
                     ),
                   );
                 },
@@ -149,6 +152,10 @@ class _ConfigurationPageState extends State<ConfigurationPage>
         );
       },
     );
+  }
+
+  void _removeQueue(String id) {
+    context.read<ConfigurationBloc>().add(RemoveQueueEvent(id));
   }
 }
 
