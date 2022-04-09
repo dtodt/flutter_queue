@@ -29,12 +29,23 @@ void main() {
     expect(result, emits(isA<List<Map>>()));
   });
 
-  test('should return a list of queue map', () async {
+  test('should create a queue', () async {
     expect(datasource.addQueue(kEmptyQueueMap), completes);
     final ref = await firestore.collection(kQueueCollection).get();
     final queues = ref.docs;
     expect(queues.length, 1);
     expect(queues.first.data()['title'], equals(kEmptyQueueMap['title']));
     expect(queues.first.data()['id'], isNot(equals(kEmptyQueueMap['id'])));
+  });
+
+  test('should remove a queue', () async {
+    await firestore
+        .collection(kQueueCollection)
+        .doc(kIdText)
+        .set(kEmptyQueueMap);
+    expect(datasource.removeQueue(kIdText), completes);
+    final ref = await firestore.collection(kQueueCollection).get();
+    final queues = ref.docs;
+    expect(queues.length, 0);
   });
 }
